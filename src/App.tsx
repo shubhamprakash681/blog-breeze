@@ -1,13 +1,35 @@
-import { Client } from "appwrite";
+import React, { useEffect, useState } from "react";
+import authService from "./services/appwrite/auth";
+import { useAppDispatch } from "./hooks/useStore";
+import { login, logout } from "./features/authSlice";
 
-const client = new Client();
+const App: React.FC = () => {
+  const dispatch = useAppDispatch();
 
-client
-  .setEndpoint("https://cloud.appwrite.io/v1")
-  .setProject("66dc55c9002a974ade62");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-function App() {
-  return <h1>App</h1>;
-}
+  useEffect(() => {
+    const fetchCurrentUserData = async () => {
+      try {
+        const userData = await authService.getCurrentUser();
+        console.log("here, userData: ", userData);
+
+        if (userData) {
+          dispatch(login(userData));
+        } else {
+          dispatch(logout());
+        }
+      } catch (error) {
+        console.log("Error: ", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCurrentUserData();
+  }, []);
+
+  return <div>APP</div>;
+};
 
 export default App;
