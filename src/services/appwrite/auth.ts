@@ -1,8 +1,6 @@
 import { Client, Account, ID } from "appwrite";
 import { envVariables } from "../../config/variables";
 
-// const user = await account.create(ID.unique(), "email@example.com", "password");
-
 class AuthService {
   client: Client = new Client();
   account: Account;
