@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import authService from "./services/appwrite/auth";
-import { useAppDispatch } from "./hooks/useStore";
+import { useAppDispatch, useAppSelector } from "./hooks/useStore";
 import { login, logout } from "./features/authSlice";
 import { Footer, Header } from "./components";
 import { Outlet } from "react-router-dom";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
+
+  const { theme } = useAppSelector((state) => state.themeReducer);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -30,6 +32,13 @@ const App: React.FC = () => {
 
     fetchCurrentUserData();
   }, []);
+
+  useEffect(() => {
+    const html = document.querySelector("html");
+
+    html?.classList.remove("light", "dark");
+    html?.classList.add(theme);
+  }, [theme]);
 
   return (
     <div className="app-container bg-orange-50 text-black dark:bg-slate-700 dark:text-white">
