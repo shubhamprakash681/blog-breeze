@@ -3,5 +3,6 @@ import Footer from "./footer/Footer";
 import PostCard from "./postCard/PostCard";
 import Login from "./auth/Login";
 import Signup from "./auth/Signup";
+import ProtectedAuthLayout from "./auth/ProtectedAuthLayout";
 
-export { Header, Login, Signup, PostCard, Footer };
+export { Header, Login, Signup, ProtectedAuthLayout, PostCard, Footer };
