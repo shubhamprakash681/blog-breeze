@@ -7,4 +7,6 @@ export interface IPosts {
   userId: string;
 }
 
-export interface IUser {}
+export interface IUser {
+  $id: string
+}
