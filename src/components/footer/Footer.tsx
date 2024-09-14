@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="py-6 bg-muted">
       <div className="px-4 md:px-6">
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-6 justify-center text-center md:grid-cols-2 md:justify-start md:text-start lg:grid-cols-4">
           <div className="space-y-4">
             <h4 className="text-lg font-semibold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               About
