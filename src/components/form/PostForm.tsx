@@ -16,23 +16,17 @@ const PostForm: React.FC<IPostForm> = ({ post }) => {
 
   const { userData } = useAppSelector((state) => state.authReducer);
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    setValue,
-    control,
-    getValues,
-  } = useForm({
-    defaultValues: {
-      title: post?.title || "",
-      slug: post?.slug || "",
-      content: post?.content || "",
-      featuredImage: post?.featuredImage || "",
-      status: post?.status || false,
-      userId: post?.userId || "",
-    },
-  });
+  const { register, handleSubmit, watch, setValue, control, getValues } =
+    useForm({
+      defaultValues: {
+        title: post?.title || "",
+        slug: post?.slug || "",
+        content: post?.content || "",
+        featuredImage: post?.featuredImage || "",
+        status: post?.status || false,
+        userId: post?.userId || "",
+      },
+    });
 
   const submitHandler = async (data: any) => {
     if (post) {
