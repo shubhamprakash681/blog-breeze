@@ -57,9 +57,11 @@ const Header: React.FC = () => {
     <header className="py-3">
       <Container>
         <nav className="flex">
-          <div className="mr-4">
+          <div className="mr-4 flex items-center">
             <Link to={"/"}>
-              <Logo width="70px">Blog Breeze</Logo>
+              <Logo className="text-xl" width="70px">
+                Blog Breeze
+              </Logo>
             </Link>
           </div>
 
