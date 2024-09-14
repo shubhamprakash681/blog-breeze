@@ -41,8 +41,8 @@ const App: React.FC = () => {
   }, [theme]);
 
   return (
-    <div className="app-container bg-orange-50 text-black dark:bg-slate-700 dark:text-white">
-      <div className="outer-top shadow-sm shadow-orange-200">
+    <div className="app-container bg-background text-foreground">
+      <div className="outer-top shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background">
         <Header />
       </div>
 

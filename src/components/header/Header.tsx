@@ -11,7 +11,13 @@ type NavItems = {
   name: string;
   slug: string;
   active: boolean;
-  isSolidButton: boolean;
+  buttonVariant:
+    | "primary"
+    | "secondary"
+    | "outlined"
+    | "destructive"
+    | "ghost"
+    | "link";
 };
 
 const Header: React.FC = () => {
@@ -25,57 +31,66 @@ const Header: React.FC = () => {
       name: "Home",
       slug: "/",
       active: true,
-      isSolidButton: false,
+      buttonVariant: "link",
     },
     {
       name: "Login",
       slug: "/login",
       active: !isAuthenticated,
-      isSolidButton: false,
+      buttonVariant: "secondary",
     },
     {
       name: "Signup",
       slug: "/signup",
       active: !isAuthenticated,
-      isSolidButton: true,
+      buttonVariant: "primary",
     },
     {
       name: "All Posts",
       slug: "/all-posts",
       active: isAuthenticated,
-      isSolidButton: false,
+      buttonVariant: "link",
     },
     {
       name: "Add Post",
       slug: "/add-post",
       active: isAuthenticated,
-      isSolidButton: false,
+      buttonVariant: "link",
     },
   ];
 
   return (
     <header className="py-3">
       <Container>
-        <nav className="flex">
+        <nav className="flex items-center">
           <div className="mr-4 flex items-center">
             <Link to={"/"}>
-              <Logo className="text-xl" width="70px">
+              <Logo
+                className="text-xl bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent"
+                width="70px"
+              >
                 Blog Breeze
               </Logo>
             </Link>
           </div>
 
-          <ul className="flex ml-auto gap-2">
+          <ul className="flex items-center ml-auto gap-4">
             {theme === "light" && (
               <li>
-                <Button onClick={() => dispatch(toggleTheme())}>
+                <Button
+                  variant="outlined"
+                  onClick={() => dispatch(toggleTheme())}
+                >
                   {<MdLightMode size={"20px"} />}
                 </Button>
               </li>
             )}
             {theme === "dark" && (
               <li>
-                <Button onClick={() => dispatch(toggleTheme())}>
+                <Button
+                  variant="outlined"
+                  onClick={() => dispatch(toggleTheme())}
+                >
                   {<MdDarkMode size={"20px"} />}
                 </Button>
               </li>
@@ -88,16 +103,10 @@ const Header: React.FC = () => {
                     <NavLink
                       to={navItem.slug}
                       className={({ isActive }) =>
-                        `${isActive && "text-orange-400"}`
+                        `${isActive && "text-primary"}`
                       }
                     >
-                      <Button
-                        className={`${
-                          navItem.name !== "Signup" &&
-                          "border-none hover:bg-transparent"
-                        }`}
-                        isSolid={navItem.isSolidButton}
-                      >
+                      <Button variant={navItem.buttonVariant}>
                         {navItem.name}
                       </Button>
                     </NavLink>
