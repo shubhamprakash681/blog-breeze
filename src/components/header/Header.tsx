@@ -47,13 +47,13 @@ const Header: React.FC = () => {
     },
     {
       name: "All Posts",
-      slug: "/all-posts",
+      slug: "/posts",
       active: isAuthenticated,
       buttonVariant: "link",
     },
     {
       name: "Add Post",
-      slug: "/add-post",
+      slug: "/post/new",
       active: isAuthenticated,
       buttonVariant: "link",
     },
@@ -66,7 +66,7 @@ const Header: React.FC = () => {
           <div className="mr-4 flex items-center">
             <Link to={"/"}>
               <Logo
-                className="text-xl bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent"
+                className="text-xl bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent font-bold"
                 width="70px"
               >
                 Blog Breeze

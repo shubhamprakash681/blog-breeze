@@ -1,7 +1,12 @@
 import React from "react";
+import { PageContainer } from "../components/ui";
 
 const Home: React.FC = () => {
-  return <div className="page-container p-6">HOME</div>;
+  return (
+    <PageContainer>
+      <div>Home</div>
+    </PageContainer>
+  );
 };
 
 export default Home;

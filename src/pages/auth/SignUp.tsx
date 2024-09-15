@@ -1,7 +1,12 @@
 import React from "react";
+import { PageContainer } from "../../components/ui";
 
 const SignUp: React.FC = () => {
-  return <div className="page-container p-6">SignUp</div>;
+  return (
+    <PageContainer>
+      <div>Signup</div>
+    </PageContainer>
+  );
 };
 
 export default SignUp;

@@ -10,7 +10,7 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import { Home, Login, SignUp } from "./pages";
+import { AddPost, AllPosts, EditPost, Home, Login, SignUp } from "./pages";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +18,10 @@ const router = createBrowserRouter(
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
+
+      <Route path="/posts" element={<AllPosts />} />
+      <Route path="/post/new" element={<AddPost />} />
+      <Route path="/post/edit/:id" element={<EditPost />} />
     </Route>
   )
 );
