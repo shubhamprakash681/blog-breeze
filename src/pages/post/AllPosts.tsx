@@ -3,12 +3,10 @@ import databaseService from "../../services/appwrite/database";
 import { useAppDispatch, useAppSelector } from "../../hooks/useStore";
 import { loadAllPosts } from "../../features/postSlice";
 import { PostCard } from "../../components";
-import { useNavigate } from "react-router-dom";
-import { PageContainer } from "../../components/ui";
+import { Loader, PageContainer } from "../../components/ui";
+import Unauthorized from "../auth/Unauthorized";
 
 const AllPosts: React.FC = () => {
-  const navigate = useNavigate();
-
   const dispatch = useAppDispatch();
 
   const { posts } = useAppSelector((state) => state.postReducer);
@@ -31,21 +29,13 @@ const AllPosts: React.FC = () => {
       setLoading(false);
     };
 
-    if (!isAuthenticated) {
-      navigate("/");
-    } else {
+    if (isAuthenticated) {
       fetchAllPosts();
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated]);
 
   if (!isAuthenticated) {
-    return (
-      <PageContainer>
-        <h4 className="font-semibold my-12 text-center text-xl">All Posts</h4>
-
-        <p className="text-center">Please Login to view this page</p>
-      </PageContainer>
-    );
+    return <Unauthorized />;
   }
 
   if (loading) {
@@ -53,7 +43,9 @@ const AllPosts: React.FC = () => {
       <PageContainer>
         <h4 className="font-semibold my-12 text-center text-xl">All Posts</h4>
 
-        <h1>Loading...</h1>
+        <div style={{ height: "400px" }} className="flex items-center">
+          <Loader size="extraLarge" />
+        </div>
       </PageContainer>
     );
   }
