@@ -4,7 +4,7 @@ import { useAppDispatch } from "../../hooks/useStore";
 import { SubmitHandler, useForm } from "react-hook-form";
 import authService from "../../services/appwrite/auth";
 import { login } from "../../features/authSlice";
-import { Button, Input, Logo } from "../ui";
+import { Button, Input } from "../ui";
 
 type LoginFormInputs = {
   email: string;
@@ -15,7 +15,11 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const { register, handleSubmit } = useForm<LoginFormInputs>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isLoading },
+  } = useForm<LoginFormInputs>();
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -39,19 +43,14 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full">
+    <div className="flex items-center justify-center mx-auto">
       <div
-        className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}
+        className={`w-full max-w-lg bg-card text-cardForeground rounded-xl p-10`}
       >
-        <div className="mb-2 flex justify-center">
-          <span className="inline-block w-full max-w-[100px]">
-            <Logo width="100%" />
-          </span>
-        </div>
-        <h2 className="text-center text-2xl font-bold leading-tight">
+        <h2 className="text-center text-xl font-bold leading-tight">
           Sign in to your account
         </h2>
-        <p className="mt-2 text-center text-base text-black/60">
+        <p className="mt-2 text-center text-base text-mutedForeground">
           Don&apos;t have any account?&nbsp;
           <Link
             to="/signup"
@@ -62,8 +61,9 @@ const Login: React.FC = () => {
         </p>
 
         {errorMessage && (
-          <p className="text-red-600 mt-8 text-center">{errorMessage}</p>
+          <p className="text-destructive mt-8 text-center">{errorMessage}</p>
         )}
+
         <form onSubmit={handleSubmit(loginHandler)} className="mt-8">
           <div className="space-y-5">
             <Input
