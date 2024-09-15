@@ -1,3 +1,4 @@
+import React from "react";
 import { ForwardRefRenderFunction, useId } from "react";
 
 type SelectProps = {
@@ -7,10 +8,10 @@ type SelectProps = {
   [key: string]: any;
 };
 
-const Select: ForwardRefRenderFunction<HTMLSelectElement, SelectProps> = (
-  { options, label, className = "", ...props },
-  ref
-) => {
+const Select: ForwardRefRenderFunction<
+  HTMLSelectElement,
+  Omit<SelectProps, "ref">
+> = ({ options, label, className = "", ...props }, ref) => {
   const id = useId();
 
   return (
@@ -28,7 +29,7 @@ const Select: ForwardRefRenderFunction<HTMLSelectElement, SelectProps> = (
         className={`${className} px-3 py-2 rounded-lg outline-none focus:bg-gray-50 duration-200 border border-gray-200 w-full`}
         {...props}
       >
-        {options.map((option) => (
+        {options.map((option: any) => (
           <option value={option} key={option}>
             {option}
           </option>
@@ -38,4 +39,4 @@ const Select: ForwardRefRenderFunction<HTMLSelectElement, SelectProps> = (
   );
 };
 
-export default Select;
+export default React.forwardRef(Select);

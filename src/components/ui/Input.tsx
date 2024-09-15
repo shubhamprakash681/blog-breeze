@@ -1,3 +1,4 @@
+import React from "react";
 import { ForwardRefRenderFunction, useId } from "react";
 
 type AllHTMLInputs =
@@ -56,4 +57,4 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
   );
 };
 
-export default Input;
+export default React.forwardRef(Input);
