@@ -50,7 +50,7 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
         id={id}
         ref={ref}
         type={type}
-        className={`${className} px-3 py-2 rounded-lg outline-none bg-input focus:bg-popover focus:border-mutedForeground duration-200 border border-border w-full`}
+        className={`${className} px-3 py-2 rounded-lg outline-none bg-input focus:bg-popover focus:border-primary duration-200 border border-border w-full`}
         {...props}
       />
     </div>
