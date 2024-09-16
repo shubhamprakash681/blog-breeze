@@ -17,11 +17,7 @@ const LogoutButton: React.FC = () => {
     }
   };
 
-  return (
-    <Button isSolid onClick={logoutHandler}>
-      Logout
-    </Button>
-  );
+  return <Button onClick={logoutHandler}>Logout</Button>;
 };
 
 export default LogoutButton;

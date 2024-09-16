@@ -1,10 +1,11 @@
 import React from "react";
 import { PageContainer } from "../../components/ui";
+import { Signup as SignupCard } from "../../components";
 
 const SignUp: React.FC = () => {
   return (
-    <PageContainer>
-      <div>Signup</div>
+    <PageContainer className="flex items-center">
+      <SignupCard />
     </PageContainer>
   );
 };

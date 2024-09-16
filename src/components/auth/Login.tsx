@@ -50,7 +50,7 @@ const Login: React.FC = () => {
         <h2 className="text-center text-xl font-bold leading-tight">
           Sign in to your account
         </h2>
-        <p className="mt-2 text-center text-base text-mutedForeground">
+        <p className="mt-2 mb-5 text-center text-base text-mutedForeground">
           Don&apos;t have any account?&nbsp;
           <Link
             to="/signup"
