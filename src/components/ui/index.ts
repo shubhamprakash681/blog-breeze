@@ -6,5 +6,16 @@ import Input from "./Input";
 import Select from "./Select";
 import RTE from "./rte/RTE";
 import Loader from "./Loader";
+import FormErrorStrip from "./FormErrorStrip";
 
-export { Button, Container, PageContainer, Input, Logo, Loader, Select, RTE };
+export {
+  Button,
+  Container,
+  PageContainer,
+  Input,
+  Logo,
+  Loader,
+  Select,
+  RTE,
+  FormErrorStrip,
+};
