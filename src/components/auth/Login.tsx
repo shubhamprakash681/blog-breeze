@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/useStore";
 import { SubmitHandler, useForm } from "react-hook-form";
 import authService from "../../services/appwrite/auth";
 import { login } from "../../features/authSlice";
-import { Button, Input } from "../ui";
+import { Button, FormErrorStrip, Input } from "../ui";
+import { AppwriteException } from "appwrite";
+import { displayErrorToast } from "../../services/toast/displayToast";
 
 type LoginFormInputs = {
   email: string;
@@ -18,14 +20,16 @@ const Login: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isLoading },
-  } = useForm<LoginFormInputs>();
-
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginFormInputs>({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
   const loginHandler: SubmitHandler<LoginFormInputs> = async (data) => {
-    setErrorMessage(null);
-
     try {
       const session = await authService.login(data.email, data.password);
 
@@ -37,8 +41,11 @@ const Login: React.FC = () => {
           navigate("/");
         }
       }
-    } catch (error) {
-      setErrorMessage(error as string);
+    } catch (error: any) {
+      if (error instanceof AppwriteException) {
+        setError("root", { type: error.type, message: error.message });
+      }
+      displayErrorToast(error);
     }
   };
 
@@ -60,10 +67,6 @@ const Login: React.FC = () => {
           </Link>
         </p>
 
-        {errorMessage && (
-          <p className="text-destructive mt-8 text-center">{errorMessage}</p>
-        )}
-
         <form onSubmit={handleSubmit(loginHandler)} className="mt-8">
           <div className="space-y-5">
             <Input
@@ -71,25 +74,38 @@ const Login: React.FC = () => {
               placeholder="Enter your email"
               type="email"
               {...register("email", {
-                required: true,
+                required: { value: true, message: "Email is required" },
                 validate: {
                   matchPatern: (value) =>
                     /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
-                    "Please enter a valid Email",
+                    "Email address must be a valid address",
                 },
               })}
             />
+            {errors.email && (
+              <FormErrorStrip errorMessage={errors.email.message as string} />
+            )}
+
             <Input
               label="Password: "
               type="password"
               placeholder="Enter your password"
               {...register("password", {
-                required: true,
+                required: { value: true, message: "Password is required" },
               })}
             />
+            {errors.password && (
+              <FormErrorStrip
+                errorMessage={errors.password.message as string}
+              />
+            )}
 
-            <Button type="submit" className="w-full">
-              Sign in
+            {errors.root && (
+              <FormErrorStrip errorMessage={errors.root.message as string} />
+            )}
+
+            <Button disabled={isSubmitting} type="submit" className="w-full">
+              {isSubmitting ? "Signing in..." : "Sign in"}
             </Button>
           </div>
         </form>
