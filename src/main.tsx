@@ -11,6 +11,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { AddPost, AllPosts, EditPost, Home, Login, SignUp } from "./pages";
+import { Toaster } from "react-hot-toast";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,6 +31,11 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={reduxStore}>
       <RouterProvider router={router} />
+      <Toaster
+        toastOptions={{
+          position: "bottom-center",
+        }}
+      />
     </Provider>
   </StrictMode>
 );
