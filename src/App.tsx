@@ -16,7 +16,6 @@ const App: React.FC = () => {
     const fetchCurrentUserData = async () => {
       try {
         const userData = await authService.getCurrentUser();
-        console.log("here, userData: ", userData);
 
         if (userData) {
           dispatch(login(userData));

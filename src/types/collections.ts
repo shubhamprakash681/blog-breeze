@@ -3,10 +3,23 @@ export interface IPosts {
   slug: string;
   content: string;
   featuredImage: string;
-  status: boolean;
+  status: "active" | "inactive";
   userId: string;
 }
 
 export interface IUser {
-  $id: string
+  $id: string;
+  $createdAt: string;
+  $updatedAt: string;
+  accessedAt: string;
+  email: string;
+  emailVerification: boolean;
+  labels: [];
+  mfa: boolean;
+  name: string;
+  passwordUpdate: string;
+  phone: string;
+  phoneVerification: boolean;
+  registration: string;
+  status: boolean;
 }

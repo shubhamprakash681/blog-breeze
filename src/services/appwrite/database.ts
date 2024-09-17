@@ -70,7 +70,7 @@ class DatabaseService {
     }
   }
 
-  async getAllPosts(queries: string[] = [Query.equal("status", true)]) {
+  async getAllPosts(queries: string[] = [Query.equal("status", "active")]) {
     try {
       return await this.databases.listDocuments(
         envVariables.appwriteDatabaseId,

@@ -1,11 +1,11 @@
 import React from "react";
 import BundledEditor from "./BundledEditor";
 import { Control, Controller } from "react-hook-form";
-import { IPosts } from "../../../types/collections";
+import { PostFormInputs } from "../../../types/inputs";
 
 type RTEProps = {
   name: "content" | "title" | "slug" | "featuredImage" | "status" | "userId";
-  control: Control<IPosts>;
+  control: Control<PostFormInputs>;
   label: string;
   defaultValue: string;
 };

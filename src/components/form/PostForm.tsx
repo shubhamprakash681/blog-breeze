@@ -6,6 +6,7 @@ import { useAppSelector } from "../../hooks/useStore";
 import storageService from "../../services/appwrite/storage";
 import databaseService from "../../services/appwrite/database";
 import { Button, Input, RTE, Select } from "../ui";
+import { PostFormInputs } from "../../types/inputs";
 
 type IPostForm = {
   post?: IPosts;
@@ -17,21 +18,21 @@ const PostForm: React.FC<IPostForm> = ({ post }) => {
   const { userData } = useAppSelector((state) => state.authReducer);
 
   const { register, handleSubmit, watch, setValue, control, getValues } =
-    useForm({
+    useForm<PostFormInputs>({
       defaultValues: {
         title: post?.title || "",
         slug: post?.slug || "",
         content: post?.content || "",
         featuredImage: post?.featuredImage || "",
-        status: post?.status || false,
+        status: post?.status || "inactive",
         userId: post?.userId || "",
       },
     });
 
   const submitHandler = async (data: any) => {
     if (post) {
-      const file = data.image[0]
-        ? await storageService.uploadFile(data.image[0])
+      const file = data.featuredImage[0]
+        ? await storageService.uploadFile(data.featuredImage[0])
         : null;
 
       if (file) {
@@ -47,7 +48,9 @@ const PostForm: React.FC<IPostForm> = ({ post }) => {
         navigate(`/post/${updatedPost.$id}`);
       }
     } else {
-      const uploadedFile = await storageService.uploadFile(data.image[0]);
+      const uploadedFile = await storageService.uploadFile(
+        data.featuredImage[0]
+      );
 
       if (uploadedFile) {
         const newPost = await databaseService.createPost({
@@ -71,8 +74,8 @@ const PostForm: React.FC<IPostForm> = ({ post }) => {
         return postTitle
           .trim()
           .toLowerCase()
-          .replace(/^[a-zA-Z\d\s]+/g, "-")
-          .replace(/\s/g, "-");
+          .replace(/[^a-zA-Z0-9]/g, "-")
+          .replace(/-+/g, "-");
       }
 
       return "";
@@ -101,13 +104,17 @@ const PostForm: React.FC<IPostForm> = ({ post }) => {
           label="Title :"
           placeholder="Title"
           className="mb-4"
-          {...register("title", { required: true })}
+          {...register("title", {
+            required: { value: true, message: "Title is required" },
+          })}
         />
         <Input
           label="Slug :"
           placeholder="Slug"
           className="mb-4"
-          {...register("slug", { required: true })}
+          {...register("slug", {
+            required: { value: true, message: "Slug is required" },
+          })}
           onInput={(e: { currentTarget: { value: any } }) => {
             setValue("slug", postSlugTransform(e.currentTarget.value), {
               shouldValidate: true,
@@ -142,7 +149,9 @@ const PostForm: React.FC<IPostForm> = ({ post }) => {
           options={["active", "inactive"]}
           label="Status"
           className="mb-4"
-          {...register("status", { required: true })}
+          {...register("status", {
+            required: { value: true, message: "Status is required" },
+          })}
         />
         <Button
           type="submit"
