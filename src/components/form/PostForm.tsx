@@ -156,11 +156,7 @@ const PostForm: React.FC<IPostForm> = ({ post }) => {
             required: { value: true, message: "Status is required" },
           })}
         />
-        <Button
-          type="submit"
-          bgColor={post ? "bg-green-500" : undefined}
-          className="w-full"
-        >
+        <Button type="submit" className="w-full">
           {post ? "Update" : "Submit"}
         </Button>
       </div>

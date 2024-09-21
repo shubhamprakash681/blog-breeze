@@ -5,6 +5,7 @@ import AllPosts from "./post/AllPosts";
 import AddPost from "./post/AddPost";
 import EditPost from "./post/EditPost";
 import ViewPost from "./post/ViewPost";
+import MyPosts from "./post/MyPosts";
 import Unauthorized from "./auth/Unauthorized";
 
 export {
@@ -16,4 +17,5 @@ export {
   AddPost,
   ViewPost,
   EditPost,
+  MyPosts,
 };

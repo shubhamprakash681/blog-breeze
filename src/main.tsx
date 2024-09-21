@@ -18,6 +18,7 @@ import {
   Home,
   Login,
   SignUp,
+  MyPosts,
 } from "./pages";
 import { Toaster } from "react-hot-toast";
 import { ProtectedAuthLayout } from "./components/index.ts";
@@ -53,15 +54,23 @@ const router = createBrowserRouter(
       <Route
         path="/posts"
         element={
-          <ProtectedAuthLayout authentication={true}>
+          <ProtectedAuthLayout authentication>
             <AllPosts />
+          </ProtectedAuthLayout>
+        }
+      />
+      <Route
+        path="/posts/my-posts"
+        element={
+          <ProtectedAuthLayout authentication>
+            <MyPosts />
           </ProtectedAuthLayout>
         }
       />
       <Route
         path="/post/new"
         element={
-          <ProtectedAuthLayout authentication={true}>
+          <ProtectedAuthLayout authentication>
             <AddPost />
           </ProtectedAuthLayout>
         }
@@ -69,7 +78,7 @@ const router = createBrowserRouter(
       <Route
         path="/post/edit/:id"
         element={
-          <ProtectedAuthLayout authentication={true}>
+          <ProtectedAuthLayout authentication>
             <EditPost />
           </ProtectedAuthLayout>
         }
@@ -77,7 +86,7 @@ const router = createBrowserRouter(
       <Route
         path="/post/:id"
         element={
-          <ProtectedAuthLayout authentication={true}>
+          <ProtectedAuthLayout authentication>
             <ViewPost />
           </ProtectedAuthLayout>
         }

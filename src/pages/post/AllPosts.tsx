@@ -20,6 +20,7 @@ const AllPosts: React.FC = () => {
       setLoading(true);
       const posts = await databaseService.getAllPosts([
         Query.equal("status", "active"),
+        Query.orderDesc("$updatedAt"),
       ]);
 
       if (posts) {

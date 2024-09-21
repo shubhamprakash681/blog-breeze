@@ -45,6 +45,12 @@ const getNavItems = (isAuthenticated: boolean) => {
       buttonVariant: "link",
     },
     {
+      name: "My Posts",
+      slug: "/posts/my-posts",
+      active: isAuthenticated,
+      buttonVariant: "link",
+    },
+    {
       name: "Add Post",
       slug: "/post/new",
       active: isAuthenticated,
