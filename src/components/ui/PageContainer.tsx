@@ -30,8 +30,6 @@ const PageContainer: React.FC<PageContainerProps> = ({
         hamburgerMenuRef.current &&
         !hamburgerMenuRef.current.contains(e.target as Node)
       ) {
-        console.log("yes");
-
         dispatch(closeHamburgerMenu());
       }
     };
