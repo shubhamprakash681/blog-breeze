@@ -71,7 +71,7 @@ const PostSection: React.FC<PostSectionProps> = ({
 
   return (
     <PostSectionContainer>
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-8 p-8 justify-items-center min-h-80">
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-8 p-8 justify-items-center min-h-80">
         {posts.map((post) => (
           <PostCard
             key={post.$id}

@@ -72,7 +72,7 @@ const AllPosts: React.FC = () => {
       {error ? (
         <p className="text-center">{error}</p>
       ) : (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-8 justify-items-center">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-8 justify-items-center">
           {posts.map((post) => (
             <PostCard
               key={post.$id}

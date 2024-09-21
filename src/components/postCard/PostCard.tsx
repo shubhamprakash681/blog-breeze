@@ -12,14 +12,16 @@ const PostCard: React.FC<PostCardProps> = ({ id, title, featuredImage }) => {
   return (
     <Link
       to={`/post/${id}`}
-      className="bg-card rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg"
+      className="min-h-96 bg-card rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg"
     >
-      <div className="w-80 px-4 py-8">
-        <div className="w-full justify-center mb-4">
+      <div className="w-80 h-full px-4 py-8 flex flex-col justify-between">
+        <div className="w-full mb-4">
           <img
-            className="rounded-xl"
+            className="rounded-xl mx-auto"
             src={`${storageService.getFilePreview(featuredImage)}`}
             alt={title}
+            width={320}
+            height={320}
           />
         </div>
 
