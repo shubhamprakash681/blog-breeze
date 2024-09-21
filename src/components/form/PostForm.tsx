@@ -98,8 +98,11 @@ const PostForm: React.FC<IPostForm> = ({ post }) => {
   }, [watch, postSlugTransform, setValue]);
 
   return (
-    <form onSubmit={handleSubmit(submitHandler)} className="flex flex-wrap">
-      <div className="w-2/3 px-2">
+    <form
+      onSubmit={handleSubmit(submitHandler)}
+      className="flex flex-col space-y-10 md:flex-row md:space-x-5"
+    >
+      <div className="w-full px-2 mx-auto md:w-2/3">
         <Input
           label="Title :"
           placeholder="Title"
@@ -128,7 +131,7 @@ const PostForm: React.FC<IPostForm> = ({ post }) => {
           defaultValue={getValues("content")}
         />
       </div>
-      <div className="w-1/3 px-2">
+      <div className="w-full px-2 mx-auto md:w-1/3">
         <Input
           label="Featured Image :"
           type="file"

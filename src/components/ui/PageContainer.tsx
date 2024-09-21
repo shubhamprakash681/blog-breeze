@@ -12,7 +12,10 @@ const PageContainer: React.FC<PageContainerProps> = ({
   ...props
 }) => {
   return (
-    <div {...props} className={`${className} page-container p-6`}>
+    <div
+      {...props}
+      className={`${className} page-container py-6 pb-20 px-1 sm:px-6`}
+    >
       {children}
     </div>
   );
