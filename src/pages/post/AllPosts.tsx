@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/useStore";
 import { loadAllPosts } from "../../features/postSlice";
 import { PostCard } from "../../components";
 import { Loader, PageContainer } from "../../components/ui";
+import { Query } from "appwrite";
 
 const AllPosts: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -17,7 +18,9 @@ const AllPosts: React.FC = () => {
   useEffect(() => {
     const fetchAllPosts = async () => {
       setLoading(true);
-      const posts = await databaseService.getAllPosts([]);
+      const posts = await databaseService.getAllPosts([
+        Query.equal("status", "active"),
+      ]);
 
       if (posts) {
         dispatch(loadAllPosts(posts.documents));
