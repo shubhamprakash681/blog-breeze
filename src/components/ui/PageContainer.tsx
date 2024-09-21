@@ -46,7 +46,9 @@ const PageContainer: React.FC<PageContainerProps> = ({
               )
           )}
 
-          {isAuthenticated && <LogoutButton className="mt-4" />}
+          {isAuthenticated && (
+            <LogoutButton className="mt-4 min-h-12 w-60 sm:w-80" />
+          )}
         </div>
       )}
 
