@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from "../../hooks/useStore";
 import { loadAllPosts } from "../../features/postSlice";
 import { PostCard } from "../../components";
 import { Loader, PageContainer } from "../../components/ui";
-import Unauthorized from "../auth/Unauthorized";
 
 const AllPosts: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -45,10 +44,6 @@ const AllPosts: React.FC = () => {
         </div>
       </PageContainer>
     );
-  }
-
-  if (!isAuthenticated) {
-    return <Unauthorized />;
   }
 
   return (

@@ -32,3 +32,9 @@ export const displayErrorToast = (error: {
     id: "unexpected-error",
   });
 };
+
+export const displaySuccessToast = (message: string) => {
+  return toast.success(message, {
+    id: message.toLowerCase(),
+  });
+};

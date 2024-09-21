@@ -14,7 +14,9 @@ const PageContainer: React.FC<PageContainerProps> = ({
   return (
     <div
       {...props}
-      className={`${className} page-container py-6 pb-20 px-1 sm:px-6`}
+      className={`${
+        className ? className : ""
+      } page-container py-6 pb-20 px-1 sm:px-6`}
     >
       {children}
     </div>
