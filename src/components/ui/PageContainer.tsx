@@ -1,8 +1,9 @@
-import React from "react";
-import { useAppSelector } from "../../hooks/useStore";
+import React, { useEffect, useRef } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/useStore";
 import LogoutButton from "../header/LogoutButton";
 import { NavLink } from "react-router-dom";
 import Button from "./Button";
+import { closeHamburgerMenu } from "../../features/uiSlice";
 
 type PageContainerProps = {
   children?: React.ReactNode;
@@ -15,10 +16,32 @@ const PageContainer: React.FC<PageContainerProps> = ({
   className,
   ...props
 }) => {
+  const dispatch = useAppDispatch();
   const { isHamburgerMenuOpen, hamburgerMenuNavItems } = useAppSelector(
     (state) => state.uiReducer
   );
   const { isAuthenticated } = useAppSelector((state) => state.authReducer);
+
+  const hamburgerMenuRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleMouseDownHamburgerEvent = (e: { target: any }) => {
+      if (
+        hamburgerMenuRef.current &&
+        !hamburgerMenuRef.current.contains(e.target as Node)
+      ) {
+        console.log("yes");
+
+        dispatch(closeHamburgerMenu());
+      }
+    };
+
+    document.addEventListener("mousedown", handleMouseDownHamburgerEvent);
+
+    return () => {
+      document.removeEventListener("mousedown", handleMouseDownHamburgerEvent);
+    };
+  }, []);
 
   return (
     <div
@@ -28,7 +51,10 @@ const PageContainer: React.FC<PageContainerProps> = ({
       } page-container py-6 pb-20 px-1 sm:px-6`}
     >
       {isHamburgerMenuOpen && (
-        <div className="hamburger-menu bg-muted shadow-md md:hidden">
+        <div
+          ref={hamburgerMenuRef}
+          className="hamburger-menu bg-muted shadow-md md:hidden"
+        >
           {hamburgerMenuNavItems.map(
             (navItem) =>
               navItem.active && (
