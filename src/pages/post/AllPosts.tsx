@@ -12,11 +12,12 @@ const AllPosts: React.FC = () => {
   const { posts } = useAppSelector((state) => state.postReducer);
   const { isAuthenticated } = useAppSelector((state) => state.authReducer);
 
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchAllPosts = async () => {
+      setLoading(true);
       const posts = await databaseService.getAllPosts([]);
 
       if (posts) {
@@ -34,10 +35,6 @@ const AllPosts: React.FC = () => {
     }
   }, [isAuthenticated]);
 
-  if (!isAuthenticated) {
-    return <Unauthorized />;
-  }
-
   if (loading) {
     return (
       <PageContainer>
@@ -50,6 +47,10 @@ const AllPosts: React.FC = () => {
     );
   }
 
+  if (!isAuthenticated) {
+    return <Unauthorized />;
+  }
+
   return (
     <PageContainer>
       <h4 className="font-semibold my-12 text-center text-xl">All Posts</h4>
@@ -57,15 +58,76 @@ const AllPosts: React.FC = () => {
       {error ? (
         <p className="text-center">{error}</p>
       ) : (
-        <div className="flex flex-wrap">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-8 justify-items-center">
           {posts.map((post) => (
-            <div key={post.slug} className="p-2 w-24">
+            <>
               <PostCard
-                id={post.slug}
+                key={post.$id}
+                id={post.$id}
                 title={post.title}
                 featuredImage={post.featuredImage}
               />
-            </div>
+              <PostCard
+                key={post.$id}
+                id={post.$id}
+                title={post.title}
+                featuredImage={post.featuredImage}
+              />{" "}
+              <PostCard
+                key={post.$id}
+                id={post.$id}
+                title={post.title}
+                featuredImage={post.featuredImage}
+              />{" "}
+              <PostCard
+                key={post.$id}
+                id={post.$id}
+                title={post.title}
+                featuredImage={post.featuredImage}
+              />{" "}
+              <PostCard
+                key={post.$id}
+                id={post.$id}
+                title={post.title}
+                featuredImage={post.featuredImage}
+              />{" "}
+              <PostCard
+                key={post.$id}
+                id={post.$id}
+                title={post.title}
+                featuredImage={post.featuredImage}
+              />{" "}
+              <PostCard
+                key={post.$id}
+                id={post.$id}
+                title={post.title}
+                featuredImage={post.featuredImage}
+              />{" "}
+              <PostCard
+                key={post.$id}
+                id={post.$id}
+                title={post.title}
+                featuredImage={post.featuredImage}
+              />{" "}
+              <PostCard
+                key={post.$id}
+                id={post.$id}
+                title={post.title}
+                featuredImage={post.featuredImage}
+              />{" "}
+              <PostCard
+                key={post.$id}
+                id={post.$id}
+                title={post.title}
+                featuredImage={post.featuredImage}
+              />{" "}
+              <PostCard
+                key={post.$id}
+                id={post.$id}
+                title={post.title}
+                featuredImage={post.featuredImage}
+              />
+            </>
           ))}
         </div>
       )}
