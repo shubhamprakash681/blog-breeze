@@ -10,7 +10,15 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import { AddPost, AllPosts, EditPost, Home, Login, SignUp } from "./pages";
+import {
+  AddPost,
+  AllPosts,
+  EditPost,
+  ViewPost,
+  Home,
+  Login,
+  SignUp,
+} from "./pages";
 import { Toaster } from "react-hot-toast";
 import { ProtectedAuthLayout } from "./components/index.ts";
 
@@ -63,6 +71,14 @@ const router = createBrowserRouter(
         element={
           <ProtectedAuthLayout authentication={true}>
             <EditPost />
+          </ProtectedAuthLayout>
+        }
+      />
+      <Route
+        path="/post/:id"
+        element={
+          <ProtectedAuthLayout authentication={true}>
+            <ViewPost />
           </ProtectedAuthLayout>
         }
       />
