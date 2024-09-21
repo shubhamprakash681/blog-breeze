@@ -6,7 +6,7 @@ import { useAppSelector } from "../../hooks/useStore";
 import storageService from "../../services/appwrite/storage";
 import databaseService from "../../services/appwrite/database";
 import { Button, Input, RTE, Select } from "../ui";
-import { PostFormInputs } from "../../types/inputs";
+import { PostFormInputs } from "../../types/index.type";
 
 type IPostForm = {
   post?: IPosts;

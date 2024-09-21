@@ -4,7 +4,10 @@ import authService from "../../services/appwrite/auth";
 import { logout } from "../../features/authSlice";
 import { Button } from "../ui";
 
-const LogoutButton: React.FC = () => {
+type LogoutButtonProps = {
+  className?: string;
+};
+const LogoutButton: React.FC<LogoutButtonProps> = ({ className }) => {
   const dispatch = useAppDispatch();
 
   const logoutHandler = async () => {
@@ -17,7 +20,11 @@ const LogoutButton: React.FC = () => {
     }
   };
 
-  return <Button onClick={logoutHandler}>Logout</Button>;
+  return (
+    <Button className={className ? className : ""} onClick={logoutHandler}>
+      Logout
+    </Button>
+  );
 };
 
 export default LogoutButton;

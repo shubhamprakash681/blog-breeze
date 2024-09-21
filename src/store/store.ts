@@ -2,9 +2,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import themeReducer from "../features/themeSlice";
 import authReducer from "../features/authSlice";
 import postReducer from "../features/postSlice";
+import uiReducer from "../features/uiSlice";
 
 const reduxStore = configureStore({
-  reducer: { themeReducer, authReducer, postReducer },
+  reducer: { themeReducer, authReducer, postReducer, uiReducer },
 });
 
 export default reduxStore;

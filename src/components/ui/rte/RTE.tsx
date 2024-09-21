@@ -1,7 +1,7 @@
 import React from "react";
 import BundledEditor from "./BundledEditor";
 import { Control, Controller } from "react-hook-form";
-import { PostFormInputs } from "../../../types/inputs";
+import { PostFormInputs } from "../../../types/index.type";
 
 type RTEProps = {
   name: "content" | "title" | "slug" | "featuredImage" | "status" | "userId";

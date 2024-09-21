@@ -41,7 +41,7 @@ const App: React.FC = () => {
 
   return (
     <div className="app-container bg-background text-foreground">
-      <div className="outer-top shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background">
+      <div className="outer-top shadow-md backdrop-blur supports-[backdrop-filter]:bg-background">
         <Header />
       </div>
 

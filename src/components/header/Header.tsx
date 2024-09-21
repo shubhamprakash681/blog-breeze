@@ -1,31 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/useStore";
 import { Link, NavLink } from "react-router-dom";
 import { Container, Logo } from "../ui";
 import LogoutButton from "./LogoutButton";
 import { Button } from "../ui";
-import { MdDarkMode, MdLightMode } from "react-icons/md";
+import { MdDarkMode, MdLightMode, MdMenu, MdClose } from "react-icons/md";
 import { toggleTheme } from "../../features/themeSlice";
+import {
+  closeHamburgerMenu,
+  openHamburgerMenu,
+  setHamburgerMenuNavItems,
+} from "../../features/uiSlice";
+import { NavItems } from "../../types/index.type";
 
-type NavItems = {
-  name: string;
-  slug: string;
-  active: boolean;
-  buttonVariant:
-    | "primary"
-    | "secondary"
-    | "outlined"
-    | "destructive"
-    | "ghost"
-    | "link";
+type ThemeToggleButtonProps = {
+  theme: "light" | "dark";
+  dispatch: any;
 };
 
-const Header: React.FC = () => {
-  const dispatch = useAppDispatch();
-
-  const { isAuthenticated } = useAppSelector((state) => state.authReducer);
-  const { theme } = useAppSelector((state) => state.themeReducer);
-
+const getNavItems = (isAuthenticated: boolean) => {
   const navItems: NavItems[] = [
     {
       name: "Home",
@@ -59,6 +52,45 @@ const Header: React.FC = () => {
     },
   ];
 
+  return navItems;
+};
+
+const ThemeToggleButton: React.FC<ThemeToggleButtonProps> = ({
+  theme,
+  dispatch,
+}) => {
+  if (theme === "light") {
+    return (
+      <li>
+        <Button variant="outlined" onClick={() => dispatch(toggleTheme())}>
+          {<MdLightMode size={"20px"} />}
+        </Button>
+      </li>
+    );
+  }
+
+  return (
+    <li>
+      <Button variant="outlined" onClick={() => dispatch(toggleTheme())}>
+        {<MdDarkMode size={"20px"} />}
+      </Button>
+    </li>
+  );
+};
+
+const Header: React.FC = () => {
+  const dispatch = useAppDispatch();
+
+  const { isAuthenticated } = useAppSelector((state) => state.authReducer);
+  const { theme } = useAppSelector((state) => state.themeReducer);
+  const { isHamburgerMenuOpen, hamburgerMenuNavItems } = useAppSelector(
+    (state) => state.uiReducer
+  );
+
+  useEffect(() => {
+    dispatch(setHamburgerMenuNavItems(getNavItems(isAuthenticated)));
+  }, [isAuthenticated]);
+
   return (
     <header className="py-3">
       <Container>
@@ -74,29 +106,14 @@ const Header: React.FC = () => {
             </Link>
           </div>
 
-          <ul className="flex items-center ml-auto gap-4">
-            {theme === "light" && (
-              <li>
-                <Button
-                  variant="outlined"
-                  onClick={() => dispatch(toggleTheme())}
-                >
-                  {<MdLightMode size={"20px"} />}
-                </Button>
-              </li>
-            )}
-            {theme === "dark" && (
-              <li>
-                <Button
-                  variant="outlined"
-                  onClick={() => dispatch(toggleTheme())}
-                >
-                  {<MdDarkMode size={"20px"} />}
-                </Button>
-              </li>
-            )}
+          <ul className="hidden md:flex items-center ml-auto gap-4">
+            <ThemeToggleButton
+              key={"theme-toggle-md"}
+              theme={theme}
+              dispatch={dispatch}
+            />
 
-            {navItems.map(
+            {hamburgerMenuNavItems.map(
               (navItem) =>
                 navItem.active && (
                   <li key={navItem.name}>
@@ -119,6 +136,32 @@ const Header: React.FC = () => {
                 <LogoutButton />
               </li>
             )}
+          </ul>
+
+          <ul className="flex md:hidden items-center ml-auto gap-4">
+            <ThemeToggleButton
+              key={"theme-toggle-md"}
+              theme={theme}
+              dispatch={dispatch}
+            />
+
+            <li key={"ham-btn"}>
+              {isHamburgerMenuOpen ? (
+                <Button
+                  variant="outlined"
+                  onClick={() => dispatch(closeHamburgerMenu())}
+                >
+                  <MdClose size={"20px"} />
+                </Button>
+              ) : (
+                <Button
+                  variant="outlined"
+                  onClick={() => dispatch(openHamburgerMenu())}
+                >
+                  <MdMenu size={"20px"} />
+                </Button>
+              )}
+            </li>
           </ul>
         </nav>
       </Container>
