@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../hooks/useStore";
+import { Loader, PageContainer } from "../ui";
 
 interface IProtectedAuthLayout {
   children: React.ReactNode;
@@ -30,7 +31,11 @@ const ProtectedAuthLayout: React.FC<IProtectedAuthLayout> = ({
   }, [isAuthenticated, navigate, authentication]);
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return (
+      <PageContainer className="flex items-center">
+        <Loader size="extraLarge" />
+      </PageContainer>
+    );
   }
 
   return <>{children}</>;
