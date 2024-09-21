@@ -55,74 +55,12 @@ const AllPosts: React.FC = () => {
       ) : (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-8 justify-items-center">
           {posts.map((post) => (
-            <>
-              <PostCard
-                key={post.$id}
-                id={post.$id}
-                title={post.title}
-                featuredImage={post.featuredImage}
-              />
-              <PostCard
-                key={post.$id}
-                id={post.$id}
-                title={post.title}
-                featuredImage={post.featuredImage}
-              />{" "}
-              <PostCard
-                key={post.$id}
-                id={post.$id}
-                title={post.title}
-                featuredImage={post.featuredImage}
-              />{" "}
-              <PostCard
-                key={post.$id}
-                id={post.$id}
-                title={post.title}
-                featuredImage={post.featuredImage}
-              />{" "}
-              <PostCard
-                key={post.$id}
-                id={post.$id}
-                title={post.title}
-                featuredImage={post.featuredImage}
-              />{" "}
-              <PostCard
-                key={post.$id}
-                id={post.$id}
-                title={post.title}
-                featuredImage={post.featuredImage}
-              />{" "}
-              <PostCard
-                key={post.$id}
-                id={post.$id}
-                title={post.title}
-                featuredImage={post.featuredImage}
-              />{" "}
-              <PostCard
-                key={post.$id}
-                id={post.$id}
-                title={post.title}
-                featuredImage={post.featuredImage}
-              />{" "}
-              <PostCard
-                key={post.$id}
-                id={post.$id}
-                title={post.title}
-                featuredImage={post.featuredImage}
-              />{" "}
-              <PostCard
-                key={post.$id}
-                id={post.$id}
-                title={post.title}
-                featuredImage={post.featuredImage}
-              />{" "}
-              <PostCard
-                key={post.$id}
-                id={post.$id}
-                title={post.title}
-                featuredImage={post.featuredImage}
-              />
-            </>
+            <PostCard
+              key={post.$id}
+              id={post.$id}
+              title={post.title}
+              featuredImage={post.featuredImage}
+            />
           ))}
         </div>
       )}
