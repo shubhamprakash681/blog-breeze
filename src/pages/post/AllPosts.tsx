@@ -46,6 +46,21 @@ const AllPosts: React.FC = () => {
     );
   }
 
+  if (posts.length === 0) {
+    return (
+      <PageContainer>
+        <h4 className="font-semibold my-12 text-center text-xl">All Posts</h4>
+
+        <div style={{ height: "400px" }} className="flex items-center">
+          <p className="text-center w-full">
+            No public post available at this moment. Please come after some
+            time!
+          </p>
+        </div>
+      </PageContainer>
+    );
+  }
+
   return (
     <PageContainer>
       <h4 className="font-semibold my-12 text-center text-xl">All Posts</h4>
