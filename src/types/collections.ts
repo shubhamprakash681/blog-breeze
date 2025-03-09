@@ -1,4 +1,4 @@
-export interface IPosts {
+export interface IPost {
   $id: string;
   $createdAt: string;
   $updatedAt: string;

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { IPosts } from "../../types/collections";
+import { IPost } from "../../types/collections";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../hooks/useStore";
 import storageService from "../../services/appwrite/storage";
@@ -9,7 +9,7 @@ import { Button, Input, RTE, Select } from "../ui";
 import { PostFormInputs } from "../../types/index.type";
 
 type IPostForm = {
-  post?: IPosts;
+  post?: IPost;
 };
 
 const PostForm: React.FC<IPostForm> = ({ post }) => {

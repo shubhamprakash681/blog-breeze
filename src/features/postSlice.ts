@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IPosts } from "../types/collections";
+import { IPost } from "../types/collections";
 
 interface IPostsSlice {
-  posts: IPosts[];
+  posts: IPost[];
 }
 
 const initialState: IPostsSlice = {

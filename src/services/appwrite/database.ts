@@ -1,6 +1,6 @@
 import { Client, Databases, Query } from "appwrite";
 import { envVariables } from "../../config/variables";
-import { IPosts } from "../../types/collections";
+import { IPost } from "../../types/collections";
 
 class DatabaseService {
   client: Client = new Client();
@@ -14,7 +14,7 @@ class DatabaseService {
     this.databases = new Databases(this.client);
   }
 
-  async createPost(post: IPosts) {
+  async createPost(post: IPost) {
     try {
       return await this.databases.createDocument(
         envVariables.appwriteDatabaseId,
@@ -27,7 +27,7 @@ class DatabaseService {
     }
   }
 
-  async updatePostById(id: string, post: IPosts) {
+  async updatePostById(id: string, post: IPost) {
     try {
       return await this.databases.updateDocument(
         envVariables.appwriteDatabaseId,

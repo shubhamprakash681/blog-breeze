@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { PostForm } from "../../components";
 import { Loader, PageContainer } from "../../components/ui";
-import { IPosts } from "../../types/collections";
+import { IPost } from "../../types/collections";
 import databaseService from "../../services/appwrite/database";
 import { useAppSelector } from "../../hooks/useStore";
 import Unauthorized from "../auth/Unauthorized";
@@ -18,13 +18,13 @@ const EditPost: React.FC = () => {
 
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [postData, setPostData] = useState<IPosts | null>(null);
+  const [postData, setPostData] = useState<IPost | null>(null);
 
   useEffect(() => {
     const fetchPostData = async (postId: string) => {
       const data = await databaseService.getPostById(postId);
       if (data) {
-        const typeCastedPostData = data as unknown as IPosts;
+        const typeCastedPostData = data as unknown as IPost;
 
         if (typeCastedPostData.userId === userData?.$id) {
           setPostData(typeCastedPostData);

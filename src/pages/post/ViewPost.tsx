@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import parse from "html-react-parser";
-import { IPosts } from "../../types/collections";
+import { IPost } from "../../types/collections";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAppSelector } from "../../hooks/useStore";
 import databaseService from "../../services/appwrite/database";
@@ -14,7 +14,7 @@ import {
 } from "../../services/toast/displayToast";
 
 const ViewPost: React.FC = () => {
-  const [postData, setPostData] = useState<IPosts | null>(null);
+  const [postData, setPostData] = useState<IPost | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -47,7 +47,7 @@ const ViewPost: React.FC = () => {
         try {
           const post = await databaseService.getPostById(id);
           if (post) {
-            setPostData(post as unknown as IPosts);
+            setPostData(post as unknown as IPost);
             setError(null);
           }
         } catch (error) {

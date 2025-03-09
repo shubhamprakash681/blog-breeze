@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { IPosts } from "../../types/collections";
+import { IPost } from "../../types/collections";
 import { useAppSelector } from "../../hooks/useStore";
 import databaseService from "../../services/appwrite/database";
 import { Query } from "appwrite";
@@ -9,7 +9,7 @@ import { PostCard } from "../../components";
 
 type PostSectionProps = {
   title: string;
-  posts: IPosts[];
+  posts: IPost[];
   isLoading: boolean;
   error: string | null;
   messageIfEmpty: React.ReactNode;
@@ -86,8 +86,8 @@ const PostSection: React.FC<PostSectionProps> = ({
 };
 
 const MyPosts: React.FC = () => {
-  const [allPosts, setAllPosts] = useState<IPosts[]>([]);
-  const [inactivePosts, setInactivePosts] = useState<IPosts[]>([]);
+  const [allPosts, setAllPosts] = useState<IPost[]>([]);
+  const [inactivePosts, setInactivePosts] = useState<IPost[]>([]);
 
   const [allPostsLoading, setAllPostsLoading] = useState<boolean>(true);
   const [inactivePostsLoading, setInactivePostsLoading] =
@@ -113,7 +113,7 @@ const MyPosts: React.FC = () => {
         ]);
 
         if (posts) {
-          setAllPosts(posts.documents as unknown as IPosts[]);
+          setAllPosts(posts.documents as unknown as IPost[]);
 
           setAllPostsError(null);
         } else {
@@ -149,7 +149,7 @@ const MyPosts: React.FC = () => {
         ]);
 
         if (posts) {
-          setInactivePosts(posts.documents as unknown as IPosts[]);
+          setInactivePosts(posts.documents as unknown as IPost[]);
 
           setInactivePostsError(null);
         } else {
