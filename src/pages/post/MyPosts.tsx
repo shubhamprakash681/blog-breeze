@@ -144,7 +144,7 @@ const MyPosts: React.FC = () => {
 
         const posts = await databaseService.getAllPosts([
           Query.equal("userId", userId),
-          Query.equal("status", "inactive"),
+          Query.equal("status", "private"),
           Query.orderDesc("$updatedAt"),
         ]);
 
@@ -155,13 +155,13 @@ const MyPosts: React.FC = () => {
         } else {
           setInactivePosts([]);
           setInactivePostsError(
-            "Failed to fetch All Inactive Posts Data! Please refresh this page."
+            "Failed to fetch All Private Posts Data! Please refresh this page."
           );
         }
       } catch (error: any) {
         setInactivePosts([]);
         setInactivePostsError(
-          "Failed to fetch All Inactive Posts Data! Please refresh this page."
+          "Failed to fetch All Private Posts Data! Please refresh this page."
         );
       } finally {
         setInactivePostsLoading(false);
@@ -206,7 +206,7 @@ const MyPosts: React.FC = () => {
         posts={inactivePosts}
         messageIfEmpty={
           <p className="w-full text-center text-xl">
-            All Posts whose status is <strong>Inactive</strong> appears here.
+            All Posts whose status is <strong>Private</strong> appears here.
             <br />
             All your posts are currently <strong>Public</strong>.
             <br />

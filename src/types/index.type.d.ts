@@ -1,10 +1,13 @@
+import { IPost } from "./collections";
+
 export type PostFormInputs = {
-  title: string;
-  slug: string;
-  content: string;
+  title: IPost["title"];
+  slug: IPost["slug"];
+  content: IPost["content"];
   featuredImage: FileList | string;
-  status: "active" | "inactive";
-  userId: string;
+  category: IPost["category"];
+  status: IPost["status"];
+  userId: IPost["userId"];
 };
 
 export type NavItems = {

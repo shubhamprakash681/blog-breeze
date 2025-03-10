@@ -1,3 +1,11 @@
+type PostCategory =
+  | "technology"
+  | "lifestyle"
+  | "education"
+  | "business"
+  | "photography"
+  | "food";
+
 export interface IPost {
   $id: string;
   $createdAt: string;
@@ -6,7 +14,8 @@ export interface IPost {
   slug: string;
   content: string;
   featuredImage: string;
-  status: "active" | "inactive";
+  category: PostCategory[];
+  status: "public" | "private";
   userId: string;
 }
 

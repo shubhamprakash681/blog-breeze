@@ -24,7 +24,8 @@ const PostForm: React.FC<IPostForm> = ({ post }) => {
         slug: post?.slug || "",
         content: post?.content || "",
         featuredImage: post?.featuredImage || "",
-        status: post?.status || "inactive",
+        category: post?.category || [],
+        status: post?.status || "private",
         userId: post?.userId || "",
       },
     });
@@ -149,7 +150,7 @@ const PostForm: React.FC<IPostForm> = ({ post }) => {
           </div>
         )}
         <Select
-          options={["active", "inactive"]}
+          options={["public", "private"]}
           label="Status"
           className="mb-4"
           {...register("status", {
