@@ -1,10 +1,11 @@
-type PostCategory =
+export type PostCategory =
   | "technology"
   | "lifestyle"
   | "education"
   | "business"
   | "photography"
-  | "food";
+  | "food"
+  | "other";
 
 export interface IPost {
   $id: string;

@@ -1,12 +1,26 @@
 import React, { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { IPost } from "../../types/collections";
+import { IPost, PostCategory } from "../../types/collections";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../hooks/useStore";
 import storageService from "../../services/appwrite/storage";
 import databaseService from "../../services/appwrite/database";
-import { Button, Input, RTE, Select } from "../ui";
+import { Button, FormErrorStrip, Input, RTE, Select } from "../ui";
 import { PostFormInputs } from "../../types/index.type";
+import MultiselectController from "./multiselect/MultiselectController";
+
+const postCategories: {
+  label: string;
+  value: PostCategory;
+}[] = [
+  { label: "Technology", value: "technology" },
+  { label: "Lifestyle", value: "lifestyle" },
+  { label: "Education", value: "education" },
+  { label: "Business", value: "business" },
+  { label: "Photography", value: "photography" },
+  { label: "Food", value: "food" },
+  { label: "Other", value: "other" },
+];
 
 type IPostForm = {
   post?: IPost;
@@ -17,18 +31,25 @@ const PostForm: React.FC<IPostForm> = ({ post }) => {
 
   const { userData } = useAppSelector((state) => state.authReducer);
 
-  const { register, handleSubmit, watch, setValue, control, getValues } =
-    useForm<PostFormInputs>({
-      defaultValues: {
-        title: post?.title || "",
-        slug: post?.slug || "",
-        content: post?.content || "",
-        featuredImage: post?.featuredImage || "",
-        category: post?.category || [],
-        status: post?.status || "private",
-        userId: post?.userId || "",
-      },
-    });
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    control,
+    getValues,
+    formState: { errors },
+  } = useForm<PostFormInputs>({
+    defaultValues: {
+      title: post?.title || "",
+      slug: post?.slug || "",
+      content: post?.content || "",
+      featuredImage: post?.featuredImage || "",
+      category: post?.category || [],
+      status: post?.status || "private",
+      userId: post?.userId || "",
+    },
+  });
 
   const submitHandler = async (data: any) => {
     if (post) {
@@ -101,63 +122,122 @@ const PostForm: React.FC<IPostForm> = ({ post }) => {
   return (
     <form
       onSubmit={handleSubmit(submitHandler)}
-      className="flex flex-col space-y-10 md:flex-row md:space-x-5"
+      className="flex flex-col space-y-4 md:flex-row md:space-x-5 md:space-y-0"
     >
-      <div className="w-full px-2 mx-auto md:w-2/3">
-        <Input
-          label="Title :"
-          placeholder="Title"
-          className="mb-4"
-          {...register("title", {
-            required: { value: true, message: "Title is required" },
-          })}
-        />
-        <Input
-          label="Slug :"
-          placeholder="Slug"
-          className="mb-4"
-          {...register("slug", {
-            required: { value: true, message: "Slug is required" },
-          })}
-          onInput={(e: { currentTarget: { value: any } }) => {
-            setValue("slug", postSlugTransform(e.currentTarget.value), {
-              shouldValidate: true,
-            });
-          }}
-        />
-        <RTE
-          label="Content :"
-          name="content"
-          control={control}
-          defaultValue={getValues("content")}
-        />
-      </div>
-      <div className="w-full px-2 mx-auto md:w-1/3">
-        <Input
-          label="Featured Image :"
-          type="file"
-          className="mb-4"
-          accept="image/png, image/jpg, image/jpeg, image/gif"
-          {...register("featuredImage", { required: !post })}
-        />
-        {post && (
-          <div className="w-full mb-4">
-            <img
-              src={`${storageService.getFilePreview(post.featuredImage)}`}
-              alt={post.title}
-              className="rounded-lg"
+      <div className="w-full px-2 mx-auto md:w-2/3 space-y-4">
+        <div>
+          <Input
+            label="Title"
+            placeholder="Title"
+            {...register("title", {
+              required: { value: true, message: "Title is required" },
+            })}
+          />
+          {errors.title && (
+            <FormErrorStrip
+              className="mt-1"
+              errorMessage={errors.title.message as string}
             />
-          </div>
-        )}
-        <Select
-          options={["public", "private"]}
-          label="Status"
-          className="mb-4"
-          {...register("status", {
-            required: { value: true, message: "Status is required" },
-          })}
-        />
-        <Button type="submit" className="w-full">
+          )}
+        </div>
+
+        <div>
+          <Input
+            label="Slug"
+            placeholder="Slug"
+            {...register("slug", {
+              required: { value: true, message: "Slug is required" },
+            })}
+            onInput={(e: { currentTarget: { value: any } }) => {
+              setValue("slug", postSlugTransform(e.currentTarget.value), {
+                shouldValidate: true,
+              });
+            }}
+          />
+          {errors.slug && (
+            <FormErrorStrip
+              className="mt-1"
+              errorMessage={errors.slug.message as string}
+            />
+          )}
+        </div>
+
+        <div>
+          <RTE
+            label="Content"
+            name="content"
+            control={control}
+            defaultValue={getValues("content")}
+          />
+          {errors.content && (
+            <FormErrorStrip
+              className="mt-1"
+              errorMessage={errors.content.message as string}
+            />
+          )}
+        </div>
+      </div>
+
+      <div className="w-full px-2 mx-auto md:w-1/3 space-y-4">
+        <div>
+          <MultiselectController
+            label="Category"
+            placeholder="Search Category"
+            name="category"
+            control={control}
+            options={postCategories}
+          />
+          {errors.category && (
+            <FormErrorStrip
+              className="mt-1"
+              errorMessage={errors.category.message as string}
+            />
+          )}
+        </div>
+
+        <div>
+          <Input
+            label="Featured Image"
+            type="file"
+            accept="image/png, image/jpg, image/jpeg, image/gif"
+            {...register("featuredImage", {
+              required: { value: !post, message: "Featured image is required" },
+            })}
+          />
+          {errors.featuredImage && (
+            <FormErrorStrip
+              className="my-1"
+              errorMessage={errors.featuredImage.message as string}
+            />
+          )}
+          {post && (
+            <div className="w-full">
+              <img
+                src={`${storageService.getFilePreview(post.featuredImage)}`}
+                alt={post.title}
+                className="rounded-lg"
+              />
+            </div>
+          )}
+        </div>
+
+        <div>
+          <Select
+            options={["public", "private"]}
+            label="Status"
+            {...register("status", {
+              required: { value: true, message: "Status is required" },
+            })}
+          />
+          {errors.status && (
+            <FormErrorStrip
+              className="mt-1"
+              errorMessage={errors.status.message as string}
+            />
+          )}
+        </div>
+
+        <Button type="submit" className="w-full mt-4">
           {post ? "Update" : "Submit"}
         </Button>
       </div>

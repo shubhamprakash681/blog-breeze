@@ -19,7 +19,7 @@ const AllPosts: React.FC = () => {
     const fetchAllPosts = async () => {
       setLoading(true);
       const posts = await databaseService.getAllPosts([
-        Query.equal("status", "active"),
+        Query.equal("status", "public"),
         Query.orderDesc("$updatedAt"),
       ]);
 
