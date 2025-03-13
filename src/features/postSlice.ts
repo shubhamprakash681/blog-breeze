@@ -3,10 +3,12 @@ import { IPost } from "../types/collections";
 
 interface IPostsSlice {
   posts: IPost[];
+  recentPosts: IPost[];
 }
 
 const initialState: IPostsSlice = {
   posts: [],
+  recentPosts: [],
 };
 
 const postSlice = createSlice({
@@ -15,6 +17,9 @@ const postSlice = createSlice({
   reducers: {
     loadAllPosts: (state, actions) => {
       state.posts = actions.payload;
+    },
+    loadRecentPosts: (state, actions) => {
+      state.recentPosts = actions.payload;
     },
     updatePostById: (state, actions) => {
       const { id, postData } = actions.payload;
@@ -33,7 +38,7 @@ const postSlice = createSlice({
   },
 });
 
-export const { loadAllPosts, updatePostById, deletePostById } =
+export const { loadAllPosts, loadRecentPosts, updatePostById, deletePostById } =
   postSlice.actions;
 const postReducer = postSlice.reducer;
 export default postReducer;

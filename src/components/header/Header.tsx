@@ -46,7 +46,7 @@ const getNavItems = (isAuthenticated: boolean) => {
     },
     {
       name: "My Posts",
-      slug: "/posts/my-posts",
+      slug: "/my-posts",
       active: isAuthenticated,
       buttonVariant: "link",
     },
@@ -104,7 +104,7 @@ const Header: React.FC = () => {
           <div className="mr-4 flex items-center">
             <Link to={"/"}>
               <Logo
-                className="text-xl bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent font-bold"
+                className="text-xl bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent font-bold prevent-select"
                 width="70px"
               >
                 Blog Breeze

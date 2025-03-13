@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import authService from "./services/appwrite/auth";
 import { useAppDispatch, useAppSelector } from "./hooks/useStore";
 import { login, logout } from "./features/authSlice";
@@ -10,7 +10,7 @@ const App: React.FC = () => {
 
   const { theme } = useAppSelector((state) => state.themeReducer);
 
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  // const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchCurrentUserData = async () => {
@@ -25,7 +25,7 @@ const App: React.FC = () => {
       } catch (error) {
         console.log("Error: ", error);
       } finally {
-        setIsLoading(false);
+        // setIsLoading(false);
       }
     };
 
@@ -40,7 +40,7 @@ const App: React.FC = () => {
   }, [theme]);
 
   return (
-    <div className="app-container bg-background text-foreground">
+    <div className="app-container bg-background text-foreground selection:bg-orange-300 dark:selection:bg-yellow-700 selection:text-primary-foreground">
       <div className="outer-top shadow-md backdrop-blur supports-[backdrop-filter]:bg-background">
         <Header />
       </div>

@@ -60,7 +60,7 @@ const router = createBrowserRouter(
         }
       />
       <Route
-        path="/posts/my-posts"
+        path="/my-posts"
         element={
           <ProtectedAuthLayout authentication>
             <MyPosts />

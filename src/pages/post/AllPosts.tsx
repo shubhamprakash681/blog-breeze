@@ -5,9 +5,11 @@ import { loadAllPosts } from "../../features/postSlice";
 import { PostCard } from "../../components";
 import { Loader, PageContainer } from "../../components/ui";
 import { Query } from "appwrite";
+import { useLocation } from "react-router-dom";
 
 const AllPosts: React.FC = () => {
   const dispatch = useAppDispatch();
+  const location = useLocation();
 
   const { posts } = useAppSelector((state) => state.postReducer);
   const { isAuthenticated } = useAppSelector((state) => state.authReducer);
@@ -16,12 +18,19 @@ const AllPosts: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchAllPosts = async () => {
+    const fetchAllPosts = async (category?: string) => {
       setLoading(true);
-      const posts = await databaseService.getAllPosts([
+
+      const postQuery: string[] = [
         Query.equal("status", "public"),
         Query.orderDesc("$updatedAt"),
-      ]);
+      ];
+
+      if (category) {
+        postQuery.push(Query.contains("category", category));
+      }
+
+      const posts = await databaseService.getAllPosts(postQuery);
 
       if (posts) {
         dispatch(loadAllPosts(posts.documents));
@@ -34,9 +43,17 @@ const AllPosts: React.FC = () => {
     };
 
     if (isAuthenticated) {
-      fetchAllPosts();
+      const searchQuery = location.search;
+
+      if (searchQuery) {
+        const category = searchQuery.slice(1).split("=")[1];
+
+        fetchAllPosts(category);
+      } else {
+        fetchAllPosts();
+      }
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, location.search]);
 
   if (loading) {
     return (
@@ -57,8 +74,10 @@ const AllPosts: React.FC = () => {
 
         <div style={{ height: "400px" }} className="flex items-center">
           <p className="text-center w-full">
-            No public post available at this moment. Please come after some
-            time!
+            No public post available under the selected categories at the
+            moment.
+            <br />
+            Please come after some time!
           </p>
         </div>
       </PageContainer>
@@ -66,7 +85,7 @@ const AllPosts: React.FC = () => {
   }
 
   return (
-    <PageContainer>
+    <PageContainer className="min-w-[375px]">
       <h4 className="font-semibold my-12 text-center text-xl">All Posts</h4>
 
       {error ? (
