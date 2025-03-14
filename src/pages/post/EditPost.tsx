@@ -78,14 +78,11 @@ const EditPost: React.FC = () => {
   }
 
   return (
-    <>
-      {console.log("here, postData in comp: ", postData)}
-      <PageContainer>
-        <h4 className="font-semibold my-12 text-center text-xl">Edit Post</h4>
+    <PageContainer>
+      <h4 className="font-semibold my-12 text-center text-xl">Edit Post</h4>
 
-        {postData && <PostForm post={postData} />}
-      </PageContainer>
-    </>
+      {postData && <PostForm post={postData} />}
+    </PageContainer>
   );
 };
 

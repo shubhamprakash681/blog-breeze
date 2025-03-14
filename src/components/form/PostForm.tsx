@@ -245,7 +245,13 @@ const PostForm: React.FC<IPostForm> = ({ post }) => {
           className="w-full mt-4"
           disabled={isSubmitting || isLoading}
         >
-          {post ? "Update" : "Submit"}
+          {post
+            ? isSubmitting || isLoading
+              ? "Updating..."
+              : "Update"
+            : isSubmitting || isLoading
+            ? "Submitting..."
+            : "Submit"}
         </Button>
       </div>
     </form>
