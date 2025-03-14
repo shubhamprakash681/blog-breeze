@@ -8,6 +8,7 @@ import databaseService from "../../services/appwrite/database";
 import { Button, FormErrorStrip, Input, RTE, Select } from "../ui";
 import { PostFormInputs } from "../../types/index.type";
 import MultiselectController from "./multiselect/MultiselectController";
+import { displaySuccessToast } from "../../services/toast/displayToast";
 
 const postCategories: {
   label: string;
@@ -38,7 +39,7 @@ const PostForm: React.FC<IPostForm> = ({ post }) => {
     setValue,
     control,
     getValues,
-    formState: { errors },
+    formState: { errors, isSubmitting, isLoading },
   } = useForm<PostFormInputs>({
     defaultValues: {
       title: post?.title || "",
@@ -61,12 +62,13 @@ const PostForm: React.FC<IPostForm> = ({ post }) => {
         storageService.deleteFile(post?.featuredImage);
       }
 
-      const updatedPost = await databaseService.updatePostById(post?.slug, {
+      const updatedPost = await databaseService.updatePostById(post?.$id, {
         ...data,
         featuredImage: file ? file.$id : post?.featuredImage,
       });
 
       if (updatedPost) {
+        displaySuccessToast("Post Updated Successfully");
         navigate(`/post/${updatedPost.$id}`);
       }
     } else {
@@ -82,6 +84,7 @@ const PostForm: React.FC<IPostForm> = ({ post }) => {
         });
 
         if (newPost) {
+          displaySuccessToast("Post Created Successfully");
           navigate(`/post/${newPost.$id}`);
         } else {
           storageService.deleteFile(uploadedFile.$id);
@@ -237,7 +240,11 @@ const PostForm: React.FC<IPostForm> = ({ post }) => {
           )}
         </div>
 
-        <Button type="submit" className="w-full mt-4">
+        <Button
+          type="submit"
+          className="w-full mt-4"
+          disabled={isSubmitting || isLoading}
+        >
           {post ? "Update" : "Submit"}
         </Button>
       </div>

@@ -24,7 +24,7 @@ const buttonClass: buttonClass = {
   link: "px-4 py-2 rounded-lg underline-offset-4 hover:underline hover:text-primary transition-all duration-300 hover:shadow-lg hover:scale-105",
 };
 
-type ButtonProps = {
+interface ButtonProps extends React.AllHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   type?: "submit" | "reset" | "button";
   variant?:
@@ -34,9 +34,7 @@ type ButtonProps = {
     | "destructive"
     | "ghost"
     | "link";
-  className?: string;
-  [key: string]: any; // Allow additional props
-};
+}
 
 const Button: React.FC<ButtonProps> = ({
   children,

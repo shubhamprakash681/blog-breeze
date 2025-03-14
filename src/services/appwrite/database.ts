@@ -19,7 +19,7 @@ class DatabaseService {
       return await this.databases.createDocument(
         envVariables.appwriteDatabaseId,
         envVariables.appwriteCollectionId,
-        post.slug,
+        post.slug.slice(0, 32),
         post
       );
     } catch (error) {
