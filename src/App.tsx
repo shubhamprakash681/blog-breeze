@@ -4,6 +4,11 @@ import { useAppDispatch, useAppSelector } from "./hooks/useStore";
 import { login, logout } from "./features/authSlice";
 import { Footer, Header } from "./components";
 import { Outlet } from "react-router-dom";
+// import {
+//   generatePosts,
+//   readAllPosts,
+//   getRawPostCount,
+// } from "./services/appwrite/data-generator";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -30,6 +35,9 @@ const App: React.FC = () => {
     };
 
     fetchCurrentUserData();
+    // readAllPosts();
+    // generatePosts();
+    // getRawPostCount();
   }, []);
 
   useEffect(() => {
