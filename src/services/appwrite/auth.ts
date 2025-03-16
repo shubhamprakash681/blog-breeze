@@ -56,6 +56,24 @@ class AuthService {
       throw error;
     }
   }
+
+  async createPasswordRecovery(email: string) {
+    try {
+      const redirectLink = `${window.location.origin}/password/reset`;
+
+      await this.account.createRecovery(email, redirectLink);
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async resetPassword(userId: string, secret: string, password: string) {
+    try {
+      await this.account.updateRecovery(userId, secret, password);
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 const authService = new AuthService();

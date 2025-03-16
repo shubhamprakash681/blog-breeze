@@ -19,6 +19,8 @@ import {
   Login,
   SignUp,
   MyPosts,
+  ForgotPassword,
+  ResetPassword,
 } from "./pages";
 import { Toaster } from "react-hot-toast";
 import { ProtectedAuthLayout } from "./components/index.ts";
@@ -47,6 +49,22 @@ const router = createBrowserRouter(
         element={
           <ProtectedAuthLayout authentication={false}>
             <SignUp />
+          </ProtectedAuthLayout>
+        }
+      />
+      <Route
+        path="/password/forgot"
+        element={
+          <ProtectedAuthLayout authentication={false}>
+            <ForgotPassword />
+          </ProtectedAuthLayout>
+        }
+      />
+      <Route
+        path="/password/reset"
+        element={
+          <ProtectedAuthLayout authentication={false}>
+            <ResetPassword />
           </ProtectedAuthLayout>
         }
       />

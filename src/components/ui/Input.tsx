@@ -25,18 +25,42 @@ type AllHTMLInputs =
   | "url"
   | "week";
 
-type InputProps = {
+interface InputProps extends React.AllHTMLAttributes<HTMLInputElement> {
   label?: string;
   type?: AllHTMLInputs;
   className?: string;
-  [key: string]: any; // Allow additional props
-};
+  BtnComponent?: React.ElementType;
+}
 
 const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
-  { label, type = "text", className, ...props },
+  { label, type = "text", className, BtnComponent, ...props },
   ref
 ) => {
   const id = useId();
+
+  if (BtnComponent) {
+    return (
+      <div className="w-full">
+        {label && (
+          <label className="inline-block mb-1 pl-1" htmlFor={id}>
+            {label}
+          </label>
+        )}
+
+        <div className="flex items-center w-full">
+          <input
+            id={id}
+            ref={ref}
+            type={type}
+            className={`${className} px-3 py-2 rounded-lg outline-none bg-input focus:bg-popover focus:border-primary duration-200 border border-border w-full`}
+            {...props}
+          />
+
+          <BtnComponent />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full">
