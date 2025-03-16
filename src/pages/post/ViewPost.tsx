@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import parse from "html-react-parser";
 import { IPost } from "../../types/collections";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router";
 import { useAppSelector } from "../../hooks/useStore";
 import databaseService from "../../services/appwrite/database";
 import { Button, Loader, PageContainer } from "../../components/ui";

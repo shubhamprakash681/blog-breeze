@@ -3,7 +3,7 @@ import authService from "./services/appwrite/auth";
 import { useAppDispatch, useAppSelector } from "./hooks/useStore";
 import { login, logout } from "./features/authSlice";
 import { Footer, Header } from "./components";
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 // import {
 //   generatePosts,
 //   readAllPosts,

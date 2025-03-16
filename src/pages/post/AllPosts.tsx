@@ -5,7 +5,7 @@ import { loadAllPosts } from "../../features/postSlice";
 import { PostCard } from "../../components";
 import { Loader, PageContainer } from "../../components/ui";
 import { Query } from "appwrite";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 
 const AllPosts: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -91,7 +91,7 @@ const AllPosts: React.FC = () => {
       {error ? (
         <p className="text-center">{error}</p>
       ) : (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-8 justify-items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 items-center justify-items-center gap-4">
           {posts.map((post) => (
             <PostCard
               key={post.$id}

@@ -1,7 +1,7 @@
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Button, FormErrorStrip, Input } from "../ui";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { AppwriteException } from "appwrite";
 import {
   displayErrorToast,

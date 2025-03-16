@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import storageService from "../../services/appwrite/storage";
 
 type PostCardProps = {
@@ -12,21 +12,17 @@ const PostCard: React.FC<PostCardProps> = ({ id, title, featuredImage }) => {
   return (
     <Link
       to={`/post/${id}`}
-      className="min-h-96 bg-card rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg"
+      className="w-full min-w-full h-full overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 dark:shadow-gray-700/30"
     >
-      <div className="w-80 h-full px-4 py-8 flex flex-col justify-between">
-        <div className="w-full mb-4">
-          <img
-            className="rounded-xl mx-auto"
-            src={`${storageService.getFilePreview(featuredImage)}`}
-            alt={title}
-            width={320}
-            height={320}
-          />
-        </div>
-
-        <h2 className="mt-12 text-xl font-bold">{title}</h2>
+      <div className="w-full mb-4">
+        <img
+          className="w-full object-cover aspect-video"
+          src={`${storageService.getFilePreview(featuredImage)}`}
+          alt={title}
+        />
       </div>
+
+      <h2 className="p-4 mt-12 text-xl font-bold">{title}</h2>
     </Link>
   );
 };

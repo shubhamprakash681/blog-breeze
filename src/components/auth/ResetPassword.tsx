@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router";
 import { Button, FormErrorStrip, Input } from "../ui";
 import { BiHide, BiShow } from "react-icons/bi";
 import { AppwriteException } from "appwrite";

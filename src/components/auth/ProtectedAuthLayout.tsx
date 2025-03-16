@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useAppSelector } from "../../hooks/useStore";
 import { Loader, PageContainer } from "../ui";
 

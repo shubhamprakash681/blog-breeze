@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/useStore";
 import LogoutButton from "../header/LogoutButton";
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router";
 import Button from "./Button";
 import { closeHamburgerMenu } from "../../features/uiSlice";
 
