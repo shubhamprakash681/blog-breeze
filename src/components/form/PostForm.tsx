@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { useAppSelector } from "../../hooks/useStore";
 import storageService from "../../services/appwrite/storage";
 import databaseService from "../../services/appwrite/database";
-import { Button, FormErrorStrip, Input, RTE, Select } from "../ui";
+import { Button, FormErrorStrip, Image, Input, RTE, Select } from "../ui";
 import { PostFormInputs } from "../../types/index.type";
 import MultiselectController from "./multiselect/MultiselectController";
 import { displaySuccessToast } from "../../services/toast/displayToast";
@@ -214,13 +214,12 @@ const PostForm: React.FC<IPostForm> = ({ post }) => {
             />
           )}
           {post && (
-            <div className="w-full">
-              <img
-                src={`${storageService.getFilePreview(post.featuredImage)}`}
-                alt={post.title}
-                className="rounded-lg"
-              />
-            </div>
+            <Image
+              className="w-full mt-1 object-cover aspect-video rounded-lg"
+              loaderSize="large"
+              src={`${storageService.getFilePreview(post.featuredImage)}`}
+              alt={post.title}
+            />
           )}
         </div>
 

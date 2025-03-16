@@ -4,7 +4,7 @@ import { IPost } from "../../types/collections";
 import { Link, useNavigate, useParams } from "react-router";
 import { useAppSelector } from "../../hooks/useStore";
 import databaseService from "../../services/appwrite/database";
-import { Button, Loader, PageContainer } from "../../components/ui";
+import { Button, Image, Loader, PageContainer } from "../../components/ui";
 import storageService from "../../services/appwrite/storage";
 import { MdDelete } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
@@ -139,23 +139,18 @@ const ViewPost: React.FC = () => {
                 </div>
 
                 <div className="px-2 sm:px-10 py-10 flex flex-col items-center space-y-10">
-                  <div
-                    style={{ maxWidth: "783px" }}
-                    className="flex items-center justify-evenly"
-                  >
-                    <img
+                  <div className="w-full max-w-[783px] flex items-center justify-evenly">
+                    <Image
+                      className="w-full object-cover aspect-video rounded-xl"
+                      loaderSize="medium"
                       src={storageService
                         .getFilePreview(postData.featuredImage)
                         .toString()}
                       alt={postData.title}
-                      className="rounded-xl"
                     />
                   </div>
 
-                  <div
-                    style={{ maxWidth: "783px" }}
-                    className="w-full bg-card rounded-xl p-4 browser-css"
-                  >
+                  <div className="w-full max-w-[783px] bg-card rounded-xl p-4 browser-css">
                     {parse(postData.content)}
                   </div>
                 </div>
