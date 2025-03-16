@@ -214,14 +214,12 @@ const PostForm: React.FC<IPostForm> = ({ post }) => {
             />
           )}
           {post && (
-            <div className="w-full">
-              <Image
-                className="w-full object-cover aspect-video rounded-lg"
-                loaderSize="large"
-                src={`${storageService.getFilePreview(post.featuredImage)}`}
-                alt={post.title}
-              />
-            </div>
+            <Image
+              className="w-full mt-1 object-cover aspect-video rounded-lg"
+              loaderSize="large"
+              src={`${storageService.getFilePreview(post.featuredImage)}`}
+              alt={post.title}
+            />
           )}
         </div>
 
