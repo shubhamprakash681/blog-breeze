@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/useStore";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -7,6 +7,7 @@ import { login } from "../../features/authSlice";
 import { Button, FormErrorStrip, Input } from "../ui";
 import { AppwriteException } from "appwrite";
 import { displayErrorToast } from "../../services/toast/displayToast";
+import { BiShow, BiHide } from "react-icons/bi";
 
 type LoginFormInputs = {
   email: string;
@@ -16,6 +17,18 @@ type LoginFormInputs = {
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  const [passwordInputType, setPasswordInputType] = useState<
+    "password" | "text"
+  >("password");
+
+  const togglePasswordInputType = () => {
+    if (passwordInputType === "password") {
+      setPasswordInputType("text");
+    } else {
+      setPasswordInputType("password");
+    }
+  };
 
   const {
     register,
@@ -52,7 +65,7 @@ const Login: React.FC = () => {
   return (
     <div className="flex items-center justify-center mx-auto">
       <div
-        className={`w-full max-w-lg bg-card text-cardForeground rounded-xl p-10`}
+        className={`w-[475px] max-w-lg bg-card text-cardForeground rounded-xl p-10`}
       >
         <h2 className="text-center text-xl font-bold leading-tight">
           Sign in to your account
@@ -67,8 +80,8 @@ const Login: React.FC = () => {
           </Link>
         </p>
 
-        <form onSubmit={handleSubmit(loginHandler)} className="mt-8">
-          <div className="space-y-5">
+        <form onSubmit={handleSubmit(loginHandler)} className="mt-8 space-y-5">
+          <div>
             <Input
               label="Email: "
               placeholder="Enter your email"
@@ -83,31 +96,55 @@ const Login: React.FC = () => {
               })}
             />
             {errors.email && (
-              <FormErrorStrip errorMessage={errors.email.message as string} />
+              <FormErrorStrip
+                className="mt-1"
+                errorMessage={errors.email.message as string}
+              />
             )}
+          </div>
 
+          <div>
             <Input
               label="Password: "
-              type="password"
+              type={passwordInputType}
               placeholder="Enter your password"
+              BtnComponent={() => (
+                <button
+                  className="p-2 -ml-10 cursor-pointer"
+                  onClick={togglePasswordInputType}
+                  type="button"
+                >
+                  {passwordInputType === "password" && <BiShow size={"20px"} />}
+                  {passwordInputType === "text" && <BiHide size={"20px"} />}
+                </button>
+              )}
               {...register("password", {
                 required: { value: true, message: "Password is required" },
               })}
             />
             {errors.password && (
               <FormErrorStrip
+                className="mt-1"
                 errorMessage={errors.password.message as string}
               />
             )}
 
-            {errors.root && (
-              <FormErrorStrip errorMessage={errors.root.message as string} />
-            )}
-
-            <Button disabled={isSubmitting} type="submit" className="w-full">
-              {isSubmitting ? "Signing in..." : "Sign in"}
-            </Button>
+            <div className="flex items-center justify-end mt-1">
+              <Link to={"/password/forgot"}>
+                <Button className="py-0 text-primary" variant="link">
+                  Forgot Password?
+                </Button>
+              </Link>
+            </div>
           </div>
+
+          {errors.root && (
+            <FormErrorStrip errorMessage={errors.root.message as string} />
+          )}
+
+          <Button disabled={isSubmitting} type="submit" className="w-full">
+            {isSubmitting ? "Signing in..." : "Sign in"}
+          </Button>
         </form>
       </div>
     </div>

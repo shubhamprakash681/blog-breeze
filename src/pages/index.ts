@@ -1,6 +1,8 @@
 import Home from "./Home";
 import Login from "./auth/Login";
 import SignUp from "./auth/SignUp";
+import ForgotPassword from "./auth/ForgotPassword";
+import ResetPassword from "./auth/ResetPassword";
 import AllPosts from "./post/AllPosts";
 import AddPost from "./post/AddPost";
 import EditPost from "./post/EditPost";
@@ -12,6 +14,8 @@ export {
   Home,
   Login,
   SignUp,
+  ForgotPassword,
+  ResetPassword,
   Unauthorized,
   AllPosts,
   AddPost,
