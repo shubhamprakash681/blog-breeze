@@ -147,7 +147,7 @@ const Home: React.FC = () => {
               Recent Posts
             </h2>
             {recentPosts.length ? (
-              <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-8 justify-items-center">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 items-center justify-items-center gap-4">
                 {recentPosts.map((post) => (
                   <PostCard
                     key={`recent-post-${post.$id}`}
