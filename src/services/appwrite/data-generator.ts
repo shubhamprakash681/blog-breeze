@@ -1658,6 +1658,22 @@ const getRandomDate = (startDate: Date, endDate: Date): Date => {
   return new Date(randomTime);
 };
 
+export const getRandomUserId = (): string => {
+  const getRandomInt = (min: number, max: number) => {
+    // min - inclusive, max- exclusive
+    return Math.floor(Math.random() * (max - min)) + min;
+  };
+  const allUsers: string[] = [
+    "66e788c3001ad178162b",
+    "66ef149b0000fa047669",
+    "67a670ec001a5e5231b7",
+    "67d46cce00195fc16234",
+  ];
+  const randomInd = getRandomInt(0, allUsers.length);
+
+  return allUsers[randomInd] || "66e788c3001ad178162b";
+};
+
 const convertImageToFile = async (
   url: string,
   fileName: string
@@ -1680,32 +1696,42 @@ export const generatePosts = async () => {
   const startDate = new Date(2025, 0, 1);
   const endDate = new Date();
 
-  const post = rawPosts[0];
-  post.createdAt = getRandomDate(startDate, endDate);
-  const file = await convertImageToFile(post.featuredImage, `blog-thumb-${0}`);
+  for (let i = 0; i < rawPosts.length; i += 1) {
+    const post = rawPosts[i];
+    post.createdAt = getRandomDate(startDate, endDate);
 
-  const uploadedFile = await storageService.uploadFile(file);
+    try {
+      const file = await convertImageToFile(
+        post.featuredImage,
+        `blog-thumb-${i}`
+      );
 
-  if (uploadedFile) {
-    const newPost = await databaseService.createPost({
-      $createdAt: post.createdAt.toString(),
-      $updatedAt: post.createdAt.toString(),
+      const uploadedFile = await storageService.uploadFile(file);
 
-      title: post.title,
-      slug: postSlugTransform(post.title),
-      content: post.content,
-      category: post.category,
-      status: post.status,
-      userId: "66e788c3001ad178162b",
-      featuredImage: uploadedFile?.$id,
-      $id: "",
-    });
+      if (uploadedFile) {
+        const newPost = await databaseService.createPost({
+          $createdAt: post.createdAt.toString(),
+          $updatedAt: post.createdAt.toString(),
 
-    if (newPost) {
-      console.log(`Post Created Successfully`);
-    } else {
-      storageService.deleteFile(uploadedFile.$id);
-      console.error(`Post Created Failed!`);
+          title: post.title,
+          slug: postSlugTransform(post.title),
+          content: post.content,
+          category: post.category,
+          status: post.status,
+          userId: getRandomUserId(),
+          featuredImage: uploadedFile?.$id,
+          // comment id to create
+          $id: "",
+        });
+
+        if (newPost) {
+          console.log(`Post Created Successfully`);
+        } else {
+          storageService.deleteFile(uploadedFile.$id);
+        }
+      }
+    } catch (error) {
+      console.error("Post Creation Failed!, err: ", error);
     }
   }
 };
