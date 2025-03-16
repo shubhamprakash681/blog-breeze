@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import { useAppDispatch } from "../../hooks/useStore";
 import { SubmitHandler, useForm } from "react-hook-form";
 import authService from "../../services/appwrite/auth";

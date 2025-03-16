@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import { PostForm } from "../../components";
 import { Loader, PageContainer } from "../../components/ui";
 import { IPost } from "../../types/collections";

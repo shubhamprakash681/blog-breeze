@@ -9,7 +9,7 @@ import {
   FiCamera,
 } from "react-icons/fi";
 import { LuUtensils } from "react-icons/lu";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Query } from "appwrite";
 import databaseService from "../services/appwrite/database";
 import { useAppDispatch, useAppSelector } from "../hooks/useStore";

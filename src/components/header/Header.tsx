@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/useStore";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router";
 import { Container, Logo } from "../ui";
 import LogoutButton from "./LogoutButton";
 import { Button } from "../ui";

@@ -4,7 +4,7 @@ import { useAppSelector } from "../../hooks/useStore";
 import databaseService from "../../services/appwrite/database";
 import { Query } from "appwrite";
 import { Button, Loader, PageContainer } from "../../components/ui";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { PostCard } from "../../components";
 
 type PostSectionProps = {

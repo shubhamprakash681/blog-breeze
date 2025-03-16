@@ -5,7 +5,7 @@ import { loadAllPosts } from "../../features/postSlice";
 import { PostCard } from "../../components";
 import { Loader, PageContainer } from "../../components/ui";
 import { Query } from "appwrite";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 
 const AllPosts: React.FC = () => {
   const dispatch = useAppDispatch();

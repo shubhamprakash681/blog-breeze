@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, PageContainer } from "../../components/ui";
 import { CiLock } from "react-icons/ci";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 const Unauthorized: React.FC = () => {
   return (

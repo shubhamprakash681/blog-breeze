@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { IPost, PostCategory } from "../../types/collections";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useAppSelector } from "../../hooks/useStore";
 import storageService from "../../services/appwrite/storage";
 import databaseService from "../../services/appwrite/database";
