@@ -70,7 +70,9 @@ class DatabaseService {
     }
   }
 
-  async getAllPosts(queries: string[] = [Query.equal("status", "public")]) {
+  getAllPosts = async (
+    queries: string[] = [Query.equal("status", "public")]
+  ) => {
     try {
       return await this.databases.listDocuments(
         envVariables.appwriteDatabaseId,
@@ -82,7 +84,7 @@ class DatabaseService {
 
       return false;
     }
-  }
+  };
 }
 
 const databaseService = new DatabaseService();

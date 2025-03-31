@@ -52,7 +52,7 @@ const ForgotPasword: React.FC = () => {
           Forgot your password
         </h2>
         <p className="mt-2 mb-8 text-base text-mutedForeground">
-          Please enter the email address associated to your account
+          Get Password Reset Link
         </p>
 
         <form onSubmit={handleSubmit(submitHandler)} className="space-y-5">
