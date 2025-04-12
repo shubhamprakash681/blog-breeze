@@ -25,7 +25,6 @@ const ViewPost: React.FC = () => {
   const { isAuthenticated, userData } = useAppSelector(
     (state) => state.authReducer
   );
-  const { posts } = useAppSelector((state) => state.postReducer);
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -36,16 +35,6 @@ const ViewPost: React.FC = () => {
   useEffect(() => {
     const fetchPostData = async () => {
       setLoading(true);
-
-      if (posts.length) {
-        const postDataFromStore = posts.find((postData) => postData.$id === id);
-
-        if (postDataFromStore) {
-          setPostData(postDataFromStore);
-          setLoading(false);
-          setError(null);
-        }
-      }
 
       if (id) {
         try {
