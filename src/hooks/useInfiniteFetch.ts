@@ -34,8 +34,6 @@ const useInfiniteFetch = (
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        // console.log("entries: ", entries);
-
         if (entries[0].isIntersecting && !isLoading) {
           // Clear the previous timeout (if any)
           if (debounceTimeout) {
@@ -44,9 +42,6 @@ const useInfiniteFetch = (
 
           // Set a new timeout to delay the API call
           const timeout = setTimeout(async () => {
-            // console.log("this test, reacghed here, query: ", query);
-            // console.log("this test, data: ", data);
-
             // trigger API call
             if (!query) return;
             if (
@@ -59,8 +54,6 @@ const useInfiniteFetch = (
             setIsLoading(true);
 
             const res = await fetcher(query);
-
-            // console.log("this test, res:", res);
 
             if (res) {
               setData((prev) => {
@@ -87,7 +80,7 @@ const useInfiniteFetch = (
             }
 
             setIsLoading(false);
-          }, 300);
+          }, 10);
 
           setDebounceTimeout(timeout);
         }
