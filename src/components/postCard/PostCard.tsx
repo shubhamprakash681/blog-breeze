@@ -19,7 +19,7 @@ const PostCard: React.FC<PostCardProps> = ({ id, title, featuredImage }) => {
         <Image
           className="w-full object-cover aspect-video"
           loaderSize="medium"
-          src={`${storageService.getFilePreview(featuredImage)}`}
+          src={`${storageService.getFileView(featuredImage)}`}
           alt={title}
         />
       </div>

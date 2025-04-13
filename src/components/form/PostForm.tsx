@@ -217,7 +217,7 @@ const PostForm: React.FC<IPostForm> = ({ post }) => {
             <Image
               className="w-full mt-1 object-cover aspect-video rounded-lg"
               loaderSize="large"
-              src={`${storageService.getFilePreview(post.featuredImage)}`}
+              src={`${storageService.getFileView(post.featuredImage)}`}
               alt={post.title}
             />
           )}

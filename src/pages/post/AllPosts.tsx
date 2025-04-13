@@ -46,48 +46,51 @@ const AllPosts: React.FC = () => {
     }
   }, [isAuthenticated, location.search]);
 
-  return (
-    <PageContainer className="min-w-[375px]">
-      <h4 className="font-semibold my-12 text-center text-xl">All Posts</h4>
-
-      {error ? (
+  if (error) {
+    return (
+      <PageContainer className="min-w-[375px]">
         <div className="h-full min-h-[50vh] flex flex-col items-center justify-around gap-6">
           {error && <p className="text-red-500">{error}</p>}
           <Button variant="secondary" onClick={refreshData}>
             Refresh page
           </Button>
         </div>
-      ) : (
-        <>
-          {posts && posts.documents.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 items-center justify-items-center gap-4">
-              {posts.documents.map((post) => (
-                <PostCard
-                  key={post.$id}
-                  id={post.$id}
-                  title={post.title}
-                  featuredImage={post.featuredImage}
-                />
-              ))}
-            </div>
-          ) : (
-            <div style={{ height: "400px" }} className="flex items-center">
-              <p className="text-center w-full">
-                No public post available under the selected categories at the
-                moment.
-                <br />
-                Please come after some time!
-              </p>
-            </div>
-          )}
+      </PageContainer>
+    );
+  }
 
-          <div
-            ref={loaderRef}
-            className="flex items-center justify-around my-5"
-          >
-            {isLoading && <Loader size="extraLarge" />}
-          </div>
-        </>
+  return (
+    <PageContainer className="min-w-[375px]">
+      <h4 className="font-semibold my-12 text-center text-xl">All Posts</h4>
+
+      {posts && posts.documents.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 items-center justify-items-center gap-4">
+          {posts.documents.map((post) => (
+            <PostCard
+              key={post.$id}
+              id={post.$id}
+              title={post.title}
+              featuredImage={post.featuredImage}
+            />
+          ))}
+        </div>
+      ) : (
+        <div style={{ height: "400px" }} className="flex items-center">
+          <p className="text-center w-full">
+            No public post available under the selected categories at the
+            moment.
+            <br />
+            Please come after some time!
+          </p>
+        </div>
+      )}
+
+      <div ref={loaderRef} className="flex items-center justify-around my-5">
+        {isLoading && <Loader size="extraLarge" />}
+      </div>
+
+      {posts && posts.documents.length === posts.total && (
+        <p className="text-center w-full mt-10">You have reached to end!</p>
       )}
     </PageContainer>
   );

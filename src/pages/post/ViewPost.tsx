@@ -133,7 +133,7 @@ const ViewPost: React.FC = () => {
                       className="w-full object-cover aspect-video rounded-xl"
                       loaderSize="medium"
                       src={storageService
-                        .getFilePreview(postData.featuredImage)
+                        .getFileView(postData.featuredImage)
                         .toString()}
                       alt={postData.title}
                     />

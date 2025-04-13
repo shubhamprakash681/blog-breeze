@@ -40,6 +40,10 @@ class StorageService {
   getFilePreview(fileId: string) {
     return this.storage.getFilePreview(envVariables.appwriteBucketId, fileId);
   }
+
+  getFileView(fileId: string) {
+    return this.storage.getFileView(envVariables.appwriteBucketId, fileId);
+  }
 }
 
 const storageService = new StorageService();
