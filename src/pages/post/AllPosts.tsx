@@ -64,7 +64,7 @@ const AllPosts: React.FC = () => {
       <h4 className="font-semibold my-12 text-center text-xl">All Posts</h4>
 
       {posts && posts.documents.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 items-center justify-items-center gap-4">
+        <div className="py-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 items-center justify-items-center gap-4">
           {posts.documents.map((post) => (
             <PostCard
               key={post.$id}
@@ -75,14 +75,16 @@ const AllPosts: React.FC = () => {
           ))}
         </div>
       ) : (
-        <div style={{ height: "400px" }} className="flex items-center">
-          <p className="text-center w-full">
-            No public post available under the selected categories at the
-            moment.
-            <br />
-            Please come after some time!
-          </p>
-        </div>
+        !isLoading && (
+          <div style={{ height: "400px" }} className="flex items-center">
+            <p className="text-center w-full">
+              No public post available under the selected categories at the
+              moment.
+              <br />
+              Please come after some time!
+            </p>
+          </div>
+        )
       )}
 
       <div ref={loaderRef} className="flex items-center justify-around my-5">
