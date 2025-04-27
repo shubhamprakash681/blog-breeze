@@ -60,7 +60,13 @@ const useInfiniteFetch = (
                 return {
                   documents:
                     prev && prev.documents
-                      ? [...(prev?.documents || []), ...res.documents]
+                      ? [
+                          ...(prev?.documents || []),
+                          ...res.documents.filter(
+                            (doc) =>
+                              !prev?.documents?.some((d) => d.$id === doc.$id)
+                          ),
+                        ]
                       : res.documents,
                   total: res.total,
                 };
